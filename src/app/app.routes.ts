@@ -1,16 +1,27 @@
 import { Routes } from '@angular/router';
-import {Dashboard} from './SmartHarvest/dashboard/dashboard';
-import {Cultivos} from './SmartHarvest/cultivos/cultivos';
-import {Alertas} from './SmartHarvest/alertas/alertas';
-import {Recommendations} from './SmartHarvest/recommendations/recommendations';
-import {LearningResources} from './SmartHarvest/learning-resources/learning-resources';
+import {DashboardComponent} from './components/dashboard-component/dashboard-component';
+import {CultivosComponent} from './components/cultivos-component/cultivos-component';
+import {AlertasComponent} from './components/alertas-component/alertas-component';
+import {RecommendationsComponent} from './components/recommendations-component/recommendations-component';
+import {LearningResourcesComponent} from './components/learning-resources-component/learning-resources-component';
+import {SignUpComponent} from './components/sign-up-component/sign-up-component';
+import {DashboardHomeComponent} from './components/dashboard-home-component/dashboard-home-component';
 
 
 export const routes: Routes = [
-  { path: 'SmartHarvest/dashboard', component: Dashboard },
-  { path: 'SmartHarvest/cultivos', component: Cultivos},
-  { path: 'SmartHarvest/alertas', component: Alertas },
-  { path: 'SmartHarvest/recommendations', component: Recommendations },
-  { path: 'SmartHarvest/learning-resources', component: LearningResources },
-  { path: '**', redirectTo: 'SmartHarvest/dashboard' }
+  { path: '', component: SignUpComponent },
+
+  {
+    path: 'SmartHarvest',
+    component: DashboardComponent,
+    children: [
+      { path: 'dashboard', component: DashboardHomeComponent },
+      { path: 'cultivos', component: CultivosComponent },
+      { path: 'alertas', component: AlertasComponent },
+      { path: 'recommendations', component: RecommendationsComponent },
+      { path: 'learning-resources', component: LearningResourcesComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+    ]
+  },
+  { path: '**', redirectTo: 'SmartHarvest' }
 ];
