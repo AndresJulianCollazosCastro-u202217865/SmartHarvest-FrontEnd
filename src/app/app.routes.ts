@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import {DashboardComponent} from './components/dashboard-component/dashboard-component';
-import {CultivosComponent} from './components/cultivos-component/cultivos-component';
+import {CultivoInfoComponent} from './components/cultivos-component/cultivos-component';
 import {AlertasComponent} from './components/alertas-component/alertas-component';
 import {RecommendationsComponent} from './components/recommendations-component/recommendations-component';
 import {LearningResourcesComponent} from './components/learning-resources-component/learning-resources-component';
@@ -16,7 +16,7 @@ export const routes: Routes = [
     component: DashboardComponent,
     children: [
       { path: 'dashboard', component: DashboardHomeComponent },
-      { path: 'cultivos', component: CultivosComponent },
+      { path: 'cultivos', component: CultivoInfoComponent  },
       { path: 'alertas', component: AlertasComponent },
       { path: 'recommendations', component: RecommendationsComponent },
       { path: 'learning-resources', component: LearningResourcesComponent },

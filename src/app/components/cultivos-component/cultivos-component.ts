@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-cultivos-component',
-  imports: [],
+  selector: 'app-cultivo-info',
   templateUrl: './cultivos-component.html',
-  styleUrl: './cultivos-component.css'
+  styleUrls: ['./cultivos-component.css']
 })
-export class CultivosComponent {
+export class CultivoInfoComponent {
+  opcionSeleccionada: string = '';
 
+  seleccionarOpcion(opcion: string) {
+    this.opcionSeleccionada = opcion;
+  }
 }

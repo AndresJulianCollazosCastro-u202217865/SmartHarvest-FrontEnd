@@ -1,1 +1,35 @@
-<p>cultivos-component works!</p>
+<h2>Ingresar información de cultivo</h2>
+
+<!-- Botones -->
+<div>
+  <button (click)="seleccionarOpcion('insumos')">Registro de insumos</button>
+  <button (click)="seleccionarOpcion('stock')">Verificación de stock</button>
+  <button (click)="seleccionarOpcion('reposicion')">Recordatorios de reposición</button>
+  <button (click)="seleccionarOpcion('cultivo')">Registro de cultivo</button>
+</div>
+
+<!-- Contenido dinámico -->
+<div *ngIf="opcionSeleccionada === 'insumos'">
+  <h3>Registrar Insumo</h3>
+  <label>Nombre del insumo: <input type="text" /></label><br />
+  <label>Cantidad: <input type="number" /></label>
+</div>
+
+<div *ngIf="opcionSeleccionada === 'stock'">
+  <h3>Stock disponible</h3>
+  <p>[Aquí se mostraría el stock desde la base de datos]</p>
+</div>
+
+<div *ngIf="opcionSeleccionada === 'reposicion'">
+  <h3>Recordatorio de reposición</h3>
+  <label>Fecha de reposición: <input type="date" /></label>
+</div>
+
+<div *ngIf="opcionSeleccionada === 'cultivo'">
+  <h3>Registrar Cultivo</h3>
+  <label>Nombre: <input type="text" /></label><br />
+  <label>Tipo: <input type="text" /></label><br />
+  <label>Fecha: <input type="date" /></label><br />
+  <label>Ubicación: <input type="text" /></label><br />
+  <label>Área (m²): <input type="number" /></label>
+</div>
