@@ -1,1 +1,58 @@
-<p>sign-up-component works!</p>
+<div class="dashboard-container">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <img src="assets/logo-Icon.webp" alt="SmartHarvest Logo" class="logo" />
+      <h1 class="logo-text">SmartHarvest</h1>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="cards-container">
+      <mat-card class="registro-card fixed-card">
+        <mat-card-content class="registro-header">
+          <h2>Registro</h2>
+          <p>Crea una cuenta para comenzar a utilizar SmartHarvest</p>
+        </mat-card-content>
+
+        <mat-card-content>
+          <form [formGroup]="SignUpForm" class="form-container"  (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="fill">
+              <mat-label>Nombre</mat-label>
+              <input  matInput  formControlName="userName" placeholder="Ingrese su nombre" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Email:</mat-label>
+              <input matInput formControlName="userEmail" placeholder="Ingrese su Correo" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Contraseña</mat-label>
+              <input  matInput type="password" formControlName="userPassword" placeholder="Ingrese su contraseña" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Ubicacion</mat-label>
+              <input matInput  formControlName="userLocation" placeholder="Ingrese su ubicacion" />
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit" class="btn-rounded">
+              Registrar
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="info-card fixed-card">
+        <mat-card-content class="info-content">
+          <img src="assets/logo-Icon.webp" class="info-logo" alt="Logo" />
+          <h2>Únete a SmartHarvest</h2>
+          <p>
+            Regístrate para acceder a nuestra plataforma de agricultura inteligente y maximiza el rendimiento de
+            tus cultivos con tecnología de vanguardia.
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </main>
+</div>

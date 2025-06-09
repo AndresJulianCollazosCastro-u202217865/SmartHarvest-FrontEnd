@@ -9,8 +9,7 @@ import {DashboardHomeComponent} from './components/dashboard-home-component/dash
 
 
 export const routes: Routes = [
-  { path: '', component: SignUpComponent },
-
+  { path: 'SmartHarvest/user', component: SignUpComponent },
   {
     path: 'SmartHarvest',
     component: DashboardComponent,
@@ -23,5 +22,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
+  { path: '', redirectTo: 'SmartHarvest/user', pathMatch: 'full' },
+
   { path: '**', redirectTo: 'SmartHarvest' }
 ];

@@ -1,0 +1,116 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.sidebar-header .logo {
+  width: 32px;
+  margin-right: 12px;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.cards-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 24px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.fixed-card {
+  width: 628px;
+  height: 700px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.fixed-card > * {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+mat-form-field {
+  width: 100%;
+  max-width: 400px;
+  margin: 8px 0;
+}
+
+button {
+  max-width: 400px;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.info-logo {
+  max-width: 120px;
+  margin-bottom: 16px;
+}
+
+.registro-header {
+  text-align: center;
+  margin-bottom: 16px;
+
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  p {
+    margin: 4px 0 0;
+    color: #666;
+  }
+}
+
+.compact-field {
+  width: 100%;
+  max-width: 400px;
+  margin: 4px 0;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 2px 8px;
+
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+}
+
+.btn-rounded {
+  margin-top: 16px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px !important;
+}
+
+.registro-card {
+  background-color: #ffffff;
+}
+
+.info-card {
+  background-color: #EBFCF0;
+  color: black;
+}
+
