@@ -1,0 +1,47 @@
+<div class="dashboard-container">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <img src="assets/logo-Icon.webp" alt="SmartHarvest Logo" class="logo" />
+      <h1 class="logo-text">SmartHarvest</h1>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="cards-container">
+      <mat-card class="registro-card fixed-card">
+        <mat-card-content class="registro-header">
+          <h2>Iniciar sesión</h2>
+          <p>Ingresa tus credenciales para acceder a tu cuenta</p>
+        </mat-card-content>
+
+        <mat-card-content>
+          <form [formGroup]="LogInForm" class="form-container"  (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="fill">
+              <mat-label>Nombre</mat-label>
+              <input  matInput  formControlName="userName" placeholder="Ingrese su nombre" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Contraseña</mat-label>
+              <input  matInput type="password" formControlName="userPassword" placeholder="Ingrese su contraseña" />
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit" class="btn-rounded">
+              Registrar
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="info-card fixed-card">
+        <mat-card-content class="info-content">
+          <img src="assets/logo-Icon.webp" class="info-logo" alt="Logo" />
+          <h2>Bienvenido a SmartHarvest</h2>
+          <p>
+            Accede a tu cuenta para gestionar tus cultivos, ver recomendaciones personalizadas y optimizar tu producción agrícola.
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </main>
+</div>
