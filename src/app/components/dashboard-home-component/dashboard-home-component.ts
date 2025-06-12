@@ -21,11 +21,12 @@ import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/mat
 export class DashboardHomeComponent {
 
   alertReport: AlertReport[] = [];
-  userId = 1
+  totalAlerts = 0;
   weatherAlertService = inject(WeatherAlertService)
 
   ngOnInit() {
-    this.weatherAlertService.getAlertReportByUser(this.userId).subscribe((data) => {
+    const userId = Number(localStorage.getItem('userId'));
+    this.weatherAlertService.getAlertReportByUser(userId).subscribe((data) => {
       this.alertReport = data
     })
   }
