@@ -1,0 +1,32 @@
+<div class="dashboard-home">
+  <h2>Welcome to SmartHarvest Dashboard</h2>
+  <p>This is your central hub for managing your agricultural activities.</p>
+
+  <div class="dashboard-stats">
+    <div class="stat-card">
+      <h3>Active Crops</h3>
+      <p class="stat-value">5</p>
+    </div>
+
+    <div class="stat-card">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Alertas</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p class="total-alerts">{{ getTotalAlerts() }}</p>
+          <ul class="alert-breakdown">
+            @for (report of alertReport; track report) {
+              <li>{{ report.total }} {{ report.type.toLowerCase() }}</li>
+            }
+          </ul>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="stat-card">
+      <h3>Recommendations</h3>
+      <p class="stat-value">3</p>
+    </div>
+  </div>
+</div>

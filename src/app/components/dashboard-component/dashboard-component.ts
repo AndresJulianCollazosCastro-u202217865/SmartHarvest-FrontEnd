@@ -1,6 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
-import {NgOptimizedImage} from '@angular/common';
 import {DashboardService} from '../../services/dashboard-service';
 import {DashboardLink} from '../../model/dashboard-hateoas';
 
@@ -11,10 +10,10 @@ import {DashboardLink} from '../../model/dashboard-hateoas';
     RouterLinkActive,
     RouterOutlet,
   ],
-  templateUrl: './dashboard-component.html',
-  styleUrl: './dashboard-component.css'
+  templateUrl:'./dashboard-component.html',
+  styleUrl:'./dashboard-component.css',
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
   protected readonly RouterLink = RouterLink;
 

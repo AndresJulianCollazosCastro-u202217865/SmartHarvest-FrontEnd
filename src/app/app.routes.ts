@@ -6,11 +6,12 @@ import {RecommendationsComponent} from './components/recommendations-component/r
 import {LearningResourcesComponent} from './components/learning-resources-component/learning-resources-component';
 import {SignUpComponent} from './components/sign-up-component/sign-up-component';
 import {DashboardHomeComponent} from './components/dashboard-home-component/dashboard-home-component';
+import {LogInComponent} from './components/log-in-component/log-in-component';
 
 
 export const routes: Routes = [
-  { path: '', component: SignUpComponent },
-
+  { path: 'SmartHarvest/user', component: SignUpComponent },
+  { path: 'SmartHarvest/authenticate', component: LogInComponent},
   {
     path: 'SmartHarvest',
     component: DashboardComponent,
@@ -23,5 +24,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
+  { path: '', redirectTo: 'SmartHarvest/user', pathMatch: 'full' },
+
   { path: '**', redirectTo: 'SmartHarvest' }
 ];
