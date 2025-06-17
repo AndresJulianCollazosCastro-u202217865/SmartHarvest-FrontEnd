@@ -1,91 +1,92 @@
-<div style="padding: 20px; max-width: 800px; margin: auto;">
-  <h2>Gestión de Cultivo</h2>
+<div class="container">
+  <h2>Gestión de Cultivos e Insumos</h2>
 
-  <!-- Botones -->
-  <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
+  <div class="botones">
     <button mat-raised-button color="primary" (click)="seleccionar('cultivo')">Registrar Cultivo</button>
     <button mat-raised-button color="accent" (click)="seleccionar('insumos')">Registrar Insumo</button>
-    <button mat-raised-button color="warn" (click)="seleccionar('verificar')">Verificar Stock</button>
-    <button mat-raised-button color="primary" (click)="seleccionar('recordatorio')">Recordatorio Reposición</button>
   </div>
 
-  <!-- Formulario Cultivo -->
-  <form *ngIf="opcionSeleccionada === 'cultivo'" (ngSubmit)="registrarCultivo()" style="margin-top: 20px;">
-    <mat-form-field appearance="outline" class="w-100">
-      <mat-label>Nombre del cultivo</mat-label>
-      <input matInput [(ngModel)]="cultivo.cropName" name="cropName" required>
+  <!-- Formulario de Cultivo -->
+  <form *ngIf="opcionSeleccionada === 'cultivo'" (ngSubmit)="registrarCultivo()" class="formulario">
+    <h3>Registrar Cultivo</h3>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre del Cultivo</mat-label>
+      <input matInput [(ngModel)]="cultivo.cropName" name="cropName" required />
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="w-100">
+    <mat-form-field appearance="outline">
       <mat-label>Tipo</mat-label>
-      <input matInput [(ngModel)]="cultivo.cropType" name="cropType" required>
+      <input matInput [(ngModel)]="cultivo.cropType" name="cropType" />
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="w-100">
+    <mat-form-field appearance="outline">
       <mat-label>Ubicación</mat-label>
-      <input matInput [(ngModel)]="cultivo.cropUbication" name="cropUbication">
+      <input matInput [(ngModel)]="cultivo.cropUbication" name="cropUbication" />
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="w-100">
+    <mat-form-field appearance="outline">
       <mat-label>Área (m²)</mat-label>
-      <input matInput type="number" [(ngModel)]="cultivo.cropArea" name="cropArea">
+      <input matInput type="number" [(ngModel)]="cultivo.cropArea" name="cropArea" />
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="w-100">
-      <mat-label>Fecha de inicio</mat-label>
-      <input matInput [matDatepicker]="picker" [(ngModel)]="cultivo.startDate" name="startDate">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha de Inicio</mat-label>
+      <input matInput [matDatepicker]="inicioPicker" [(ngModel)]="cultivo.startDate" name="startDate" />
+      <mat-datepicker-toggle matSuffix [for]="inicioPicker"></mat-datepicker-toggle>
+      <mat-datepicker #inicioPicker></mat-datepicker>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit">Registrar Cultivo</button>
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha de Fin (opcional)</mat-label>
+      <input matInput [matDatepicker]="finPicker" [(ngModel)]="cultivo.endDate" name="endDate" />
+      <mat-datepicker-toggle matSuffix [for]="finPicker"></mat-datepicker-toggle>
+      <mat-datepicker #finPicker></mat-datepicker>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Guardar Cultivo</button>
   </form>
 
-  <!-- Formulario Insumo -->
-  <form *ngIf="opcionSeleccionada === 'insumos'" (ngSubmit)="registrarInsumo()" style="margin-top: 20px;">
-    <mat-form-field appearance="outline" class="w-100">
-      <mat-label>Nombre del Insumo</mat-label>
-      <input matInput [(ngModel)]="insumo.name" name="name" required>
+  <!-- Formulario de Insumo -->
+  <form *ngIf="opcionSeleccionada === 'insumos'" (ngSubmit)="registrarInsumo()" class="formulario">
+    <h3>Registrar Insumo</h3>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput [(ngModel)]="insumo.name" name="name" required />
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="w-100">
+    <mat-form-field appearance="outline">
       <mat-label>Cantidad</mat-label>
-      <input matInput type="number" [(ngModel)]="insumo.quantity" name="quantity" required>
+      <input matInput type="number" [(ngModel)]="insumo.quantity" name="quantity" required />
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="w-100">
+    <mat-form-field appearance="outline">
       <mat-label>Unidad</mat-label>
-      <input matInput [(ngModel)]="insumo.unit" name="unit">
+      <input matInput [(ngModel)]="insumo.unit" name="unit" />
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="w-100">
+    <mat-form-field appearance="outline">
       <mat-label>Descripción</mat-label>
-      <input matInput [(ngModel)]="insumo.description" name="description">
+      <input matInput [(ngModel)]="insumo.description" name="description" />
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="w-100">
+    <!-- Relación con cultivo (si se desea seleccionar uno) -->
+    <mat-form-field appearance="outline">
       <mat-label>ID del cultivo asociado</mat-label>
-      <input matInput type="number" [(ngModel)]="insumo.crop.id" name="cropId">
+      <input matInput type="number" [(ngModel)]="insumo.crop.id" name="cropId" />
     </mat-form-field>
 
-    <button mat-raised-button color="accent" type="submit">Registrar Insumo</button>
+    <button mat-raised-button color="accent" type="submit">Guardar Insumo</button>
   </form>
 
-  <!-- Stock de insumos -->
-  <div *ngIf="opcionSeleccionada === 'verificar'" style="margin-top: 20px;">
-    <h3>Lista de Insumos Registrados</h3>
-    <ul *ngIf="listaInsumos.length > 0; else sinInsumos">
+  <!-- Lista de Insumos -->
+  <div *ngIf="listaInsumos.length > 0">
+    <h3>Insumos Registrados</h3>
+    <ul>
       <li *ngFor="let insumo of listaInsumos">
         {{ insumo.name }} - {{ insumo.quantity }} {{ insumo.unit }}
       </li>
     </ul>
-    <ng-template #sinInsumos>
-      <p>No hay insumos registrados.</p>
-    </ng-template>
-  </div>
-
-  <!-- Recordatorio -->
-  <div *ngIf="opcionSeleccionada === 'recordatorio'" style="margin-top: 20px;">
-    <p>Todavia nada</p>
   </div>
 </div>

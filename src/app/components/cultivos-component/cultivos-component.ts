@@ -1,20 +1,28 @@
 import { Component } from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-cultivo-info',
   templateUrl: './cultivos-component.html',
   styleUrls: ['./cultivos-component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule]
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ]
 })
 export class CultivoInfoComponent {
   opcionSeleccionada: string = '';
@@ -24,12 +32,11 @@ export class CultivoInfoComponent {
     cropType: '',
     cropUbication: '',
     cropArea: 0,
-    startDate: '',  // en formato YYYY-MM-DD
-    endDate: '',    // puedes dejarlo vacío si es opcional
-    nextCropId: null,
-    user: null      // puedes dejar null si el backend lo toma del token
+    startDate: '',      // formato: 'YYYY-MM-DD'
+    endDate: '',        // puede ser vacío
+    nextCropId: null,   // opcional
+    user: null          // se asignará antes de enviar
   };
-
 
   insumo = {
     name: '',
@@ -53,7 +60,18 @@ export class CultivoInfoComponent {
   }
 
   registrarCultivo() {
-    this.http.post('http://localhost:8080/SmartHarvest/cultivos', this.cultivo)
+    const userId = Number(localStorage.getItem('userId'));
+    if (!userId) {
+      alert("Usuario no identificado");
+      return;
+    }
+
+    const cultivoPayload = {
+      ...this.cultivo,
+      user: { id: userId }
+    };
+
+    this.http.post('http://localhost:8080/SmartHarvest/cultivos', cultivoPayload)
       .subscribe({
         next: () => alert('Cultivo registrado correctamente'),
         error: err => {
@@ -64,7 +82,18 @@ export class CultivoInfoComponent {
   }
 
   registrarInsumo() {
-    this.http.post('http://localhost:8080/SmartHarvest/insumos', this.insumo)
+    const userId = Number(localStorage.getItem('userId'));
+    if (!userId) {
+      alert("Usuario no identificado");
+      return;
+    }
+
+    const insumoPayload = {
+      ...this.insumo,
+      user: { id: userId }  // si tu backend lo espera
+    };
+
+    this.http.post('http://localhost:8080/SmartHarvest/insumos', insumoPayload)
       .subscribe({
         next: () => {
           alert('Insumo registrado con éxito');
@@ -73,9 +102,7 @@ export class CultivoInfoComponent {
             quantity: 0,
             unit: '',
             description: '',
-            crop: {
-              id: null
-            }
+            crop: { id: null }
           };
           this.obtenerInsumos();
         },
