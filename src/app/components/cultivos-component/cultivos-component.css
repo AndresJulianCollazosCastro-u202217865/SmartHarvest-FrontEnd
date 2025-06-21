@@ -1,105 +1,69 @@
-/* General container */
-.botones-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-/* Botones */
-button {
-  background-color: #4CAF50; /* Verde elegante */
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
-/* Secciones visibles cuando se selecciona una opción */
-.seccion {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  margin-top: 15px;
-  background-color: #f9f9f9;
-}
-
-/* Campos de entrada */
-input, select, textarea {
-  padding: 8px;
-  width: 100%;
-  max-width: 400px;
-  margin: 5px 0 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-/* Títulos */
-.seccion h3 {
-  color: #333;
-  margin-bottom: 10px;
-}
-
-/* Formulario */
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-/* cultivos-component.css */
-
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem;
-  gap: 2rem;
+  padding: 24px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-.button-group {
+.botones {
   display: flex;
-  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
   flex-wrap: wrap;
-  gap: 1rem;
 }
 
-button.mat-mdc-raised-button {
-  min-width: 160px;
-  font-weight: bold;
-  font-size: 16px;
-  padding: 12px 20px;
-  border-radius: 10px;
+mat-card {
+  margin-bottom: 32px;
+  padding: 16px;
 }
 
-.form-section {
-  width: 100%;
-  max-width: 600px;
-  border: 1px solid #ddd;
-  padding: 1.5rem;
-  border-radius: 12px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-}
-
-.mat-form-field {
-  width: 100%;
-  margin-bottom: 1rem;
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 1rem;
+mat-card-title {
+  font-size: 20px;
+  margin-bottom: 16px;
+  font-weight: 600;
   color: #3f51b5;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+button[type="submit"] {
+  margin-top: 12px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin-top: 24px;
+}
+
+table {
+  width: 100%;
+  border-spacing: 0;
+}
+
+.mat-header-cell {
+  font-weight: bold;
+  background-color: #f5f5f5;
+}
+
+.mat-row:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.mat-row:hover {
+  background-color: #f1f1f1;
+}
+
+.recordatorio-box {
+  background: #e3f2fd;
+  padding: 16px;
+  border-left: 4px solid #1976d2;
+  border-radius: 4px;
+  margin-bottom: 24px;
+}
+
+.recordatorio-box span {
+  font-weight: bold;
+  color: #0d47a1;
 }

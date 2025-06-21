@@ -1,18 +1,21 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-cultivo-info',
   templateUrl: './cultivos-component.html',
   styleUrls: ['./cultivos-component.css'],
   standalone: true,
+  providers: [DatePipe],
   imports: [
     CommonModule,
     FormsModule,
@@ -21,7 +24,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCardModule,
+    MatTableModule
   ]
 })
 export class CultivoInfoComponent {
@@ -32,10 +37,12 @@ export class CultivoInfoComponent {
     cropType: '',
     cropUbication: '',
     cropArea: 0,
-    startDate: '',      // formato: 'YYYY-MM-DD'
-    endDate: '',        // puede ser vacío
-    nextCropId: null,   // opcional
-    user: null          // se asignará antes de enviar
+    startDate: '',
+    endDate: '',
+    nextCropId: null,
+    user: {
+      id: 1,
+    }
   };
 
   insumo = {
@@ -50,30 +57,31 @@ export class CultivoInfoComponent {
 
   listaInsumos: any[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private datePipe: DatePipe) {}
 
   seleccionar(opcion: string) {
+    if (this.opcionSeleccionada === opcion) {
+      this.opcionSeleccionada = '';
+      return;
+    }
+
     this.opcionSeleccionada = opcion;
-    if (opcion === 'insumos') {
+
+    if (opcion === 'insumos' || opcion === 'verificar') {
       this.obtenerInsumos();
     }
   }
 
   registrarCultivo() {
-    const userId = Number(localStorage.getItem('userId'));
-    if (!userId) {
-      alert("Usuario no identificado");
-      return;
-    }
+    this.cultivo.startDate = this.datePipe.transform(this.cultivo.startDate, 'yyyy-MM-dd')!;
+    this.cultivo.endDate = this.datePipe.transform(this.cultivo.endDate, 'yyyy-MM-dd')!;
 
-    const cultivoPayload = {
-      ...this.cultivo,
-      user: { id: userId }
-    };
-
-    this.http.post('http://localhost:8080/SmartHarvest/cultivos', cultivoPayload)
+    this.http.post<any>('http://localhost:8080/SmartHarvest/cultivos', this.cultivo)
       .subscribe({
-        next: () => alert('Cultivo registrado correctamente'),
+        next: (data) => {
+          alert('Cultivo registrado correctamente');
+          this.insumo.crop.id = data.id;
+        },
         error: err => {
           alert('Error al registrar cultivo');
           console.error(err);
@@ -82,28 +90,11 @@ export class CultivoInfoComponent {
   }
 
   registrarInsumo() {
-    const userId = Number(localStorage.getItem('userId'));
-    if (!userId) {
-      alert("Usuario no identificado");
-      return;
-    }
-
-    const insumoPayload = {
-      ...this.insumo,
-      user: { id: userId }  // si tu backend lo espera
-    };
-
-    this.http.post('http://localhost:8080/SmartHarvest/insumos', insumoPayload)
+    this.http.post('http://localhost:8080/SmartHarvest/supplies', this.insumo)
       .subscribe({
         next: () => {
           alert('Insumo registrado con éxito');
-          this.insumo = {
-            name: '',
-            quantity: 0,
-            unit: '',
-            description: '',
-            crop: { id: null }
-          };
+          this.insumo = { name: '', quantity: 0, unit: '', description: '', crop: { id: this.insumo.crop.id } };
           this.obtenerInsumos();
         },
         error: err => {
@@ -114,7 +105,7 @@ export class CultivoInfoComponent {
   }
 
   obtenerInsumos() {
-    this.http.get<any[]>('http://localhost:8080/SmartHarvest/insumos')
+    this.http.get<any[]>('http://localhost:8080/SmartHarvest/supplies')
       .subscribe({
         next: data => this.listaInsumos = data,
         error: err => console.error('Error al obtener insumos', err)
