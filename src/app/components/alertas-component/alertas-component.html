@@ -2,21 +2,37 @@
   <h2>Alertas climáticas</h2>
 
   <mat-form-field appearance="fill">
-    <mat-label>Filtro</mat-label>
+    <mat-label>Tipo</mat-label>
     <mat-select [(value)]="selectedTipo" (selectionChange)="onTipoChange($event.value)">
       <mat-option [value]="">Todas</mat-option>
-      <mat-option [value]="'CRITICO'">Críticas</mat-option>
-      <mat-option [value]="'ADVERTENCIA'">Advertencias</mat-option>
+      <mat-option [value]=WeatherAlertType.CRITICO>Críticas</mat-option>
+      <mat-option [value]=WeatherAlertType.ADVERTENCIA>Advertencias</mat-option>
     </mat-select>
   </mat-form-field>
-
-  @for (alerta of alertas; track alerta) {
-    <div class="alerta-item">
-      <h3>{{ alerta.waTitle }}</h3>
-      <p>{{ alerta.waDescription }}</p>
-      <p>Tipo: {{ alerta.waType }}</p>
-      <p>Estado: {{ alerta.estado }}</p>
-      <p>Fecha: {{ alerta.waDate }}</p>
-    </div>
-  }
 </div>
+
+@for (alerta of alertas; track alerta) {
+  <mat-card appearance="outlined" class="alerta-card">
+    <div class="alerta-content">
+      <p class="titulo">{{ alerta.estado }} - {{ alerta.waTitle }}</p>
+      <p class="descripcion">{{ alerta.waDescription }}</p>
+      <div class="footer">
+        <p class="fecha">{{ alerta.waDate }}</p>
+        <button mat-stroked-button color="primary" class="boton-leer" (click)="marcarComoLeida(alerta)">
+          Marcar como leída
+        </button>
+      </div>
+
+      <div class ="alerta-icono">
+        @switch (alerta.waType) {
+          @case ('CRITICO') {
+            <img src="assets/critico.webp" alt="Crítico"/>
+          }
+          @case ('ADVERTENCIA') {
+            <img src="assets/advertencia.webp" alt="Advertencia" />
+          }
+        }
+      </div>
+    </div>
+  </mat-card>
+}
