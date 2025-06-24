@@ -1,1 +1,115 @@
-<p>cultivos-component works!</p>
+<div class="container">
+  <h2>Gestión de Cultivos e Insumos</h2>
+
+  <div class="botones">
+    <button mat-raised-button color="primary" (click)="seleccionar('cultivo')">Registrar Cultivo</button>
+    <button mat-raised-button color="accent" (click)="seleccionar('insumos')">Registrar Insumo</button>
+    <button mat-raised-button color="warn" (click)="seleccionar('verificar')">Verificar Stock</button>
+  </div>
+
+  <!-- Formulario de Cultivo -->
+  <mat-card *ngIf="opcionSeleccionada === 'cultivo'" class="example-card">
+    <mat-card-title>Formulario de Cultivo</mat-card-title>
+    <mat-card-content>
+      <form (ngSubmit)="registrarCultivo()" class="form-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre del Cultivo</mat-label>
+          <input matInput [(ngModel)]="cultivo.cropName" name="cropName" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Tipo</mat-label>
+          <input matInput [(ngModel)]="cultivo.cropType" name="cropType" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Ubicación</mat-label>
+          <input matInput [(ngModel)]="cultivo.cropUbication" name="cropUbication" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Área (m²)</mat-label>
+          <input matInput type="number" [(ngModel)]="cultivo.cropArea" name="cropArea" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha de Inicio</mat-label>
+          <input matInput [matDatepicker]="inicioPicker" [(ngModel)]="cultivo.startDate" name="startDate" />
+          <mat-datepicker-toggle matSuffix [for]="inicioPicker"></mat-datepicker-toggle>
+          <mat-datepicker #inicioPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha de Fin (opcional)</mat-label>
+          <input matInput [matDatepicker]="finPicker" [(ngModel)]="cultivo.endDate" name="endDate" />
+          <mat-datepicker-toggle matSuffix [for]="finPicker"></mat-datepicker-toggle>
+          <mat-datepicker #finPicker></mat-datepicker>
+        </mat-form-field>
+
+        <button type="submit" mat-raised-button color="primary">Guardar Cultivo</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Formulario de Insumo -->
+  <mat-card *ngIf="opcionSeleccionada === 'insumos'" class="example-card">
+    <mat-card-title>Formulario de Insumo</mat-card-title>
+    <mat-card-content>
+      <form (ngSubmit)="registrarInsumo()" class="form-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input matInput [(ngModel)]="insumo.name" name="name" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Cantidad</mat-label>
+          <input matInput type="number" [(ngModel)]="insumo.quantity" name="quantity" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Unidad</mat-label>
+          <input matInput [(ngModel)]="insumo.unit" name="unit" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Descripción</mat-label>
+          <input matInput [(ngModel)]="insumo.description" name="description" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>ID del cultivo asociado</mat-label>
+          <input matInput type="number" [(ngModel)]="insumo.crop.id" name="cropId" />
+        </mat-form-field>
+
+        <button type="submit" mat-raised-button color="accent">Guardar Insumo</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Verificación de Stock -->
+  <mat-card *ngIf="opcionSeleccionada === 'verificar'" class="example-card">
+    <mat-card-title>Stock de Insumos</mat-card-title>
+    <mat-card-content>
+      <table mat-table [dataSource]="listaInsumos" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let element">{{element.name}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef>Cantidad</th>
+          <td mat-cell *matCellDef="let element">{{element.quantity}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="unit">
+          <th mat-header-cell *matHeaderCellDef>Unidad</th>
+          <td mat-cell *matCellDef="let element">{{element.unit}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['name', 'quantity', 'unit']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['name', 'quantity', 'unit']"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>
