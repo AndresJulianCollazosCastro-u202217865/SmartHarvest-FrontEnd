@@ -1,1 +1,37 @@
-<p>learning-resources-component works!</p>
+
+<div class="container">
+  <h2>Aquí tienes unos recursos para ayudarte en tu cosecha.</h2>
+
+  <div class="filter-bar">
+    <label for="categoriaSelect">Filtro:</label>
+    <select id="categoriaSelect"
+            [(ngModel)]="categoriaSeleccionada"
+            (change)="onCategoriaChange()">
+      <option value="explicativo">explicativo</option>
+      <option value="informativo">informativo</option>
+      <option value="tutorial">tutorial</option>
+    </select>
+  </div>
+
+  <div class="intro">
+    <h3>Videos<br>prácticos</h3>
+    <p>Aprende visualmente con contenido explicado paso&nbsp;a&nbsp;paso</p>
+  </div>
+
+  <div class="card-grid">
+    <div *ngFor="let recurso of recursos" class="card">
+      <img [src]="getYoutubeThumbnail(recurso.lrLink)"
+           alt="Miniatura del video">
+      <div class="card-content">
+        <h4>{{ recurso.lrTitle }}</h4>
+        <p>{{ recurso.lrDescription }}</p>
+
+        <button class="button"
+                type="button"
+                (click)="verVideo(recurso.lrLink)">
+
+          Ver video</button>
+      </div>
+    </div>
+  </div>
+</div>
