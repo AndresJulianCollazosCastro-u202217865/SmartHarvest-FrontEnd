@@ -1,1 +1,111 @@
-<p>recommendations-component works!</p>
+<div class="container">
+  <div class="header">
+    <h1>
+      <img src="assets/img/planta.png" width="70px" alt="Icono de planta">
+      Smart Harvest
+    </h1>
+    <p>Recomendaciones inteligentes para tus cultivos</p>
+  </div>
+
+  <div class="content">
+    <div class="selector-section">
+      <div class="dropdown-container">
+        <div class="dropdown-button" [class.active]="dropdownOpen" (click)="toggleDropdown()">
+          <span>{{ getSelectedCultivoName() }}</span>
+          <span class="dropdown-arrow" [class.rotated]="dropdownOpen">▼</span>
+        </div>
+        <div class="dropdown-menu" [class.show]="dropdownOpen">
+          <div class="dropdown-item" *ngFor="let cultivo of listaCultivos" (click)="selectCultivo(cultivo)">
+            {{ cultivo.cropName }} - {{ cultivo.cropType }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-agregar" *ngIf="cultivoSeleccionado && !isLoading && esAdmin" (click)="abrirModal()">
+        <img src="assets/img/agregar_mas.png" class="icono-boton" alt="Agregar"> 
+        <span>Agregar nueva recomendación</span>
+    
+    </button>
+
+    <div class="loading" *ngIf="isLoading">
+      <div class="loading-spinner"></div>
+      <p>Cargando recomendaciones...</p>
+    </div>
+
+    <div class="recommendations-section" *ngIf="recomendaciones.length > 0 && !isLoading">
+      <h2 class="section-title">Recomendaciones para tu cultivo</h2>
+      <div class="recommendations-grid">
+        <div class="recommendation-card" *ngFor="let rec of recomendaciones">
+          <div class="card-header">
+            <div class="card-icon" [ngClass]="getIconClass(rec.rCategory)">
+              <img [src]="getIcon(rec.rCategory)" alt="Ícono de categoría" class="icon-img">
+            </div>
+            <h3 class="card-title">{{ rec.rTitle }}</h3>
+          </div>
+          <p class="card-description">{{ rec.rDescription }}</p>
+          <span class="card-category" [ngClass]="getCategoryClass(rec.rCategory)">
+            {{ rec.rCategory }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="no-recommendations" *ngIf="cultivoSeleccionado && recomendaciones.length === 0 && !isLoading">
+      <div class="no-recommendations-icon"></div>
+      <p>No hay recomendaciones disponibles para este cultivo</p>
+    </div>
+
+    <div class="tips-section">
+      <h2 class="tips-title">Tips para tu cultivo diario</h2>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-icon"><img src="assets/img/bombilla.png" alt="bombilla"> </div>
+          <h3 class="tip-title">Riega tus plantas al amanecer</h3>
+          <p class="tip-description">Evita la evaporación rápida y mejora la absorción del agua.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon"><img src="assets/img/bombilla.png"  alt="bombilla"> </div>
+          <h3 class="tip-title">Utiliza compost orgánico regularmente</h3>
+          <p class="tip-description">Enriquece el suelo con nutrientes esenciales sin químicos.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon"><img src="assets/img/bombilla.png" alt="bombilla"> </div>
+          <h3 class="tip-title">Asocia cultivos compatibles</h3>
+          <p class="tip-description">Plantar albahaca junto a tomates repele plagas de forma natural.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" *ngIf="mostrarModal">
+    <div class="modal">
+      <h2>Agregar recomendación</h2>
+      <form (ngSubmit)="guardarRecomendacion()" #formRec="ngForm">
+        <div class="form-group">
+          <label>Título</label>
+          <input type="text" [(ngModel)]="nuevaRecomendacion.rTitle" name="titulo" required>
+        </div>
+
+        <div class="form-group">
+          <label>Descripción</label>
+          <textarea [(ngModel)]="nuevaRecomendacion.rDescription" name="descripcion" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Categoría</label>
+          <select [(ngModel)]="nuevaRecomendacion.rCategory" name="categoria" required>
+            <option value="IRRIGATION">Riego</option>
+            <option value="FERTILIZATION">Fertilización</option>
+            <option value="CROP_ROTATION">Rotación</option>
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button type="submit" [disabled]="formRec.invalid">Guardar</button>
+          <button type="button" class="cancel" (click)="cerrarModal()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

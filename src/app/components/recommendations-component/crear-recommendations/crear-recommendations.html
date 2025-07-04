@@ -1,0 +1,30 @@
+<form [formGroup]="formulario" (ngSubmit)="onSubmit()" class="form-recommendation">
+
+  <mat-form-field appearance="fill">
+    <mat-label>ID (opcional)</mat-label>
+    <input matInput type="number" formControlName="recommendationId" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Titulo</mat-label>
+    <input matInput formControlName="rTitle" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Descripcion</mat-label>
+    <input matInput formControlName="rDescription" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Categoria</mat-label>
+    <mat-select formControlName="rCategory">
+      @for (category of categorias; track category.id_category) {
+        <mat-option [value]="category.id_category">{{ category.tipo }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="accent" type="submit">
+    Registrar
+  </button>
+</form>
