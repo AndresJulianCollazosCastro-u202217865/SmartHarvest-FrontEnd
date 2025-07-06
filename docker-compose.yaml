@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+  app:
+    image: front-end-smartharvest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    networks:
+      - my-network-name
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: "720m"
+networks:
+  my-network-name:
+    name: springcloud

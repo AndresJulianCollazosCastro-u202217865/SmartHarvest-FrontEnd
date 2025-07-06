@@ -3,14 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-recommendations',
   standalone: true,
   imports: [
-    RouterOutlet,
     FormsModule,
-    CommonModule 
+    CommonModule
   ],
   templateUrl: './recommendations-component.html',
   styleUrls: ['./recommendations-component.css']
@@ -43,7 +43,7 @@ export class RecommendationsComponent implements OnInit {
   }
 
   obtenerCultivos(): void {
-    this.http.get<any>('http://localhost:8080/SmartHarvest/cultivos')
+    this.http.get<any>(`${environment.apiUrl}/SmartHarvest/cultivos`)
       .subscribe({
         next: data => {
           this.listaCultivos = data._embedded.cropDtoList;
@@ -56,8 +56,8 @@ export class RecommendationsComponent implements OnInit {
     if (this.cultivoSeleccionado) {
       this.isLoading = true;
       this.dropdownOpen = false;
-      
-      this.http.get<any>(`http://localhost:8080/SmartHarvest/recommendations/cultivo/${this.cultivoSeleccionado}`)
+
+      this.http.get<any>(`${environment.apiUrl}/SmartHarvest/recommendations/cultivo/${this.cultivoSeleccionado}`)
         .subscribe({
           next: data => {
             this.recomendaciones = data;
@@ -142,7 +142,7 @@ export class RecommendationsComponent implements OnInit {
 
     console.log(this.nuevaRecomendacion);
 
-    this.http.post<any>('http://localhost:8080/SmartHarvest/recommendations', this.nuevaRecomendacion)
+    this.http.post<any>(`${environment.apiUrl}/SmartHarvest/recommendations`, this.nuevaRecomendacion)
       .subscribe({
         next: () => {
           this.cerrarModal();

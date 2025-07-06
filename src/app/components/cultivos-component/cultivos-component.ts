@@ -9,6 +9,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-cultivo-info',
@@ -76,7 +77,7 @@ export class CultivoInfoComponent {
     this.cultivo.startDate = this.datePipe.transform(this.cultivo.startDate, 'yyyy-MM-dd')!;
     this.cultivo.endDate = this.datePipe.transform(this.cultivo.endDate, 'yyyy-MM-dd')!;
 
-    this.http.post<any>('http://localhost:8080/SmartHarvest/cultivos', this.cultivo)
+    this.http.post<any>(`${environment.apiUrl}/SmartHarvest/cultivos`, this.cultivo)
       .subscribe({
         next: (data) => {
           alert('Cultivo registrado correctamente');
@@ -90,7 +91,7 @@ export class CultivoInfoComponent {
   }
 
   registrarInsumo() {
-    this.http.post('http://localhost:8080/SmartHarvest/supplies', this.insumo)
+    this.http.post(`${environment.apiUrl}/SmartHarvest/supplies`, this.insumo)
       .subscribe({
         next: () => {
           alert('Insumo registrado con éxito');
@@ -105,7 +106,7 @@ export class CultivoInfoComponent {
   }
 
   obtenerInsumos() {
-    this.http.get<any[]>('http://localhost:8080/SmartHarvest/supplies')
+    this.http.get<any[]>(`${environment.apiUrl}/SmartHarvest/supplies`)
       .subscribe({
         next: data => this.listaInsumos = data,
         error: err => console.error('Error al obtener insumos', err)
